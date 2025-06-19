@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SPTZYY STORE</title>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      background: #121212;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      text-align: center;
+      padding: 20px;
+      background: #1e1e1e;
+      font-size: 1.5rem;
+      font-weight: 600;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 24px;
+    }
+    .product {
+      background: #1c1c1c;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 32px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    .product-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .product-header h2 {
+      font-size: 1.25rem;
+      margin: 0;
+    }
+    .price-options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .option {
+      background: #292929;
+      padding: 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .option:hover {
+      background: #333;
+    }
+    .option-title {
+      font-weight: 600;
+      color: #00ffc8;
+    }
+    .option-desc {
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+    .share-btn {
+      margin-top: 16px;
+      background: #2a2a2a;
+      color: #00ffc8;
+      border: 1px solid #00ffc8;
+      padding: 10px 16px;
+      border-radius: 8px;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      transition: background 0.2s ease;
+    }
+    .share-btn:hover {
+      background: #333333;
+    }
+    .share-btn.show {
+      display: flex;
+    }
+    .info-section {
+      background: #1b1b1b;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 40px;
+    }
+    .info-section h3 {
+      color: #00ffc8;
+      margin-bottom: 10px;
+    }
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #1f1f1f;
+      padding: 14px 20px;
+      color: #fff;
+      border-left: 4px solid #00ffc8;
+      border-radius: 6px;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+      z-index: 999;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .modal-content {
+      background: #222;
+      padding: 24px 32px;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 400px;
+      box-shadow: 0 0 20px rgba(0, 255, 200, 0.3);
+    }
+    .modal-content h2 {
+      margin-bottom: 10px;
+      color: #00ffc8;
+    }
+    .modal-content p {
+      font-size: 0.95rem;
+      color: #ccc;
+    }
+    .modal-content button {
+      margin-top: 16px;
+      padding: 10px 20px;
+      background: #00ffc8;
+      color: #121212;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.85rem;
+      color: #777;
+      background: #1a1a1a;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="modal" id="welcomeModal">
+    <div class="modal-content">
+      <h2>Petunjuk Order</h2>
+      <p>Pilih produk & paket harga, lalu klik tombol <strong>"Bagikan ke Telegram"</strong> untuk order langsung ke admin.</p>
+      <button onclick="closeModal()">OK</button>
+    </div>
+  </div>
+
+  <header><i data-lucide="store"></i> SPTZYY STORE</header>
+  <div class="container">
+
+    <!-- Product Instagram -->
+    <div class="product">
+      <div class="product-header">
+        <i data-lucide="instagram"></i>
+        <h2>Crack Instagram</h2>
+      </div>
+      <div class="price-options">
+        <div class="option" onclick="selectOption('Instagram', 'Rp50.000 - encrypt (1 Bulan)', 'shareBtn1')">
+          <div class="option-title">Rp50.000 – encrypt (1 Bulan)</div>
+          <div class="option-desc">File terkunci, akses 1 bulan.</div>
+        </div>
+        <div class="option" onclick="selectOption('Instagram', 'Rp100.000 - encrypt (3 Bulan)', 'shareBtn1')">
+          <div class="option-title">Rp100.000 – encrypt (3 Bulan)</div>
+          <div class="option-desc">File terkunci, akses 3 bulan.</div>
+        </div>
+        <div class="option" onclick="selectOption('Instagram', 'Rp200.000 - Open Source', 'shareBtn1')">
+          <div class="option-title">Rp200.000 – Open Source</div>
+          <div class="option-desc">Akses penuh tanpa batas.</div>
+        </div>
+      </div>
+      <a class="share-btn" id="shareBtn1" target="_blank">
+        <i data-lucide="send"></i> Bagikan ke Telegram
+      </a>
+    </div>
+
+    <!-- Product Facebook -->
+    <div class="product">
+      <div class="product-header">
+        <i data-lucide="facebook"></i>
+        <h2>Crack Facebook</h2>
+      </div>
+      <div class="price-options">
+        <div class="option" onclick="selectOption('Facebook', 'Rp50.000 - encrypt (1 Bulan)', 'shareBtn2')">
+          <div class="option-title">Rp50.000 – encrypt (1 Bulan)</div>
+          <div class="option-desc">File terkunci, akses 1 bulan.</div>
+        </div>
+        <div class="option" onclick="selectOption('Facebook', 'Rp100.000 - encrypt (3 Bulan)', 'shareBtn2')">
+          <div class="option-title">Rp100.000 – encrypt (3 Bulan)</div>
+          <div class="option-desc">File terkunci, akses 3 bulan.</div>
+        </div>
+        <div class="option" onclick="selectOption('Facebook', 'Rp200.000 - Open Source', 'shareBtn2')">
+          <div class="option-title">Rp200.000 – Open Source</div>
+          <div class="option-desc">Akses penuh tanpa batas.</div>
+        </div>
+      </div>
+      <a class="share-btn" id="shareBtn2" target="_blank">
+        <i data-lucide="send"></i> Bagikan ke Telegram
+      </a>
+    </div>
+
+    <!-- Info Section -->
+    <div class="info-section">
+      <h3>Apa itu encrypt & Open Source?</h3>
+      <p><strong>encrypt:</strong> File terkunci hanya bisa diakses dalam durasi tertentu, tetapi dapat dijalankan.</p>
+      <p><strong>Open Source:</strong> File asli yang bisa diubah & digunakan selamanya.</p>
+    </div>
+  </div>
+
+  <footer>©sptzyy</footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    lucide.createIcons();
+
+    function selectOption(product, detail, btnId) {
+      const toast = document.getElementById('toast');
+
+      toast.textContent = `${product} – ${detail}`;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+
+      const message = encodeURIComponent(`🛒 Order Produk: ${product}\nPaket: ${detail}`);
+      const shareUrl = `https://t.me/share/url?url=https://t.me/sptzyy&text=${message}`;
+      const btn = document.getElementById(btnId);
+      btn.href = shareUrl;
+      btn.classList.add('show');
+    }
+
+    function closeModal() {
+      document.getElementById('welcomeModal').style.display = 'none';
+    }
+
+    window.onload = () => {
+      document.getElementById('welcomeModal').style.display = 'flex';
+    }
+  </script>
+</body>
+</html>
